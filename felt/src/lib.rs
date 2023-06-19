@@ -10,11 +10,6 @@ mod bigint_felt;
 pub mod arbitrary;
 
 use bigint_felt::{FeltBigInt, FIELD_HIGH, FIELD_LOW};
-use num_bigint::{BigInt, BigUint, U64Digits};
-use num_integer::Integer;
-use num_traits::{Bounded, FromPrimitive, Num, One, Pow, Signed, ToPrimitive, Zero};
-use serde::{Deserialize, Serialize};
-
 use core::{
     convert::Into,
     fmt,
@@ -24,6 +19,12 @@ use core::{
         Sub, SubAssign,
     },
 };
+use num_bigint::{BigInt, BigUint, U64Digits};
+use num_integer::Integer;
+use num_traits::{Bounded, FromPrimitive, Num, One, Pow, Signed, ToPrimitive, Zero};
+#[cfg(feature = "scale-codec")]
+use parity_scale_codec::{Decode, Encode};
+use serde::{Deserialize, Serialize};
 
 #[cfg(all(not(feature = "std"), feature = "alloc"))]
 use alloc::{string::String, vec::Vec};
@@ -109,6 +110,7 @@ macro_rules! felt_str {
 pub struct ParseFeltError;
 
 #[derive(Eq, Hash, PartialEq, PartialOrd, Ord, Clone, Deserialize, Default, Serialize)]
+#[cfg_attr(feature = "scale-codec", derive(Decode, Encode))]
 pub struct Felt252 {
     value: FeltBigInt<FIELD_HIGH, FIELD_LOW>,
 }
