@@ -63,7 +63,7 @@ keccak = { workspace = true }
 hashbrown = { workspace = true }
 anyhow = { workspace = true }
 thiserror-no-std = { workspace = true }
-starknet-types-core = { version = "0.0.6", default-features = false, features = ["serde", "curve", "num-traits"] }
+starknet-types-core = { git = "https://github.com/starknet-io/types-rs/", rev = "30e9dc0", default-features = false, features = ["serde", "curve", "num-traits"] }
 
 # only for std
 num-prime = { version = "0.4.3", features = ["big-int"], optional = true }
